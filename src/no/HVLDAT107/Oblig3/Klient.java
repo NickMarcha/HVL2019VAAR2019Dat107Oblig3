@@ -82,9 +82,9 @@ public class Klient {
 	public static void CreateAllSampleData() {
 		
 		List<Avdeling> samplesAv = new ArrayList<Avdeling>();
-		samplesAv.add(new Avdeling("venstre",1));
-		samplesAv.add(new Avdeling("hoyre",1));
-		samplesAv.add(new Avdeling("midt",1));
+		samplesAv.add(new Avdeling("WareHouse",1));
+		samplesAv.add(new Avdeling("Sales",1));
+		samplesAv.add(new Avdeling("Finance",1));
 		
 		for (Avdeling a : samplesAv) {
 			AvdelingEAO.leggTilAvdeling(a);
@@ -94,14 +94,15 @@ public class Klient {
 		
 		
 		List<Ansatt> samplesAn = new ArrayList<Ansatt>();
-		samplesAn.add(new Ansatt("Bos1","one","venstre",java.sql.Date.valueOf(LocalDate.now()), "Boss",12331231,2 ));
-		samplesAn.add(new Ansatt("Bos2","three","hoyre",java.sql.Date.valueOf(LocalDate.now()), "Boss",12331231,3 ));
-		samplesAn.add(new Ansatt("Bos3","five","midt",java.sql.Date.valueOf(LocalDate.now()), "Boss",12331231,4 ));
+		samplesAn.add(new Ansatt("AA","Andy","Arrington",java.sql.Date.valueOf(LocalDate.now()), "WareHouse-Boss",10000,2 ));
+		samplesAn.add(new Ansatt("BB","Betty","Babington",java.sql.Date.valueOf(LocalDate.now()), "Sales-Boss",13000,3 ));
+		samplesAn.add(new Ansatt("CC","Clint","Caesar",java.sql.Date.valueOf(LocalDate.now()), "Finance-Boss",10000,4 ));
 		
 		for (Ansatt a : samplesAn) {
 			AnsattEAO.leggTilAnsatt(a);
 		}
-		System.err.println("Created Boss Ansatt samples");
+		
+		System.err.println("Created Boss-Ansatt samples");
 		
 		
 		int i = 2;
@@ -110,17 +111,18 @@ public class Klient {
 			AvdelingEAO.EditAvdelingSjef(a, i);
 			i++;
 		}
+		
 		System.err.println("Reasigned Avdeling bosses");
 		
 		
 		List<Ansatt> samples = new ArrayList<Ansatt>();
 		
-		samples.add(new Ansatt("aadd","six","seven",java.sql.Date.valueOf(LocalDate.now()), "employee",12331231,2 ));
-		samples.add(new Ansatt("aaee","eight","nine",java.sql.Date.valueOf(LocalDate.now()), "employee",12331231,2 ));
-		samples.add(new Ansatt("bbaa","ten","eleven",java.sql.Date.valueOf(LocalDate.now()), "employee",12331231,3 ));
-		samples.add(new Ansatt("bbbb","twelve","thirteen",java.sql.Date.valueOf(LocalDate.now()), "employee",12331231,3 ));
-		samples.add(new Ansatt("bbcc","fourteen","fifteen",java.sql.Date.valueOf(LocalDate.now()), "employee",12331231,4 ));
-		samples.add(new Ansatt("bbdd","sixteen","seventeen",java.sql.Date.valueOf(LocalDate.now()), "employee",12331231,4 ));
+		samples.add(new Ansatt("DD","Dick","D'Avella",java.sql.Date.valueOf(LocalDate.now()), "Packer",5500,2 ));
+		samples.add(new Ansatt("EE","Eileen","Earthman",java.sql.Date.valueOf(LocalDate.now()), "Packer",5500,2 ));
+		samples.add(new Ansatt("FF","Frida","Fagerberg",java.sql.Date.valueOf(LocalDate.now()), "Sales-rep",9000,3 ));
+		samples.add(new Ansatt("GG","George","Gadsby",java.sql.Date.valueOf(LocalDate.now()), "Sales-rep",9000,3 ));
+		samples.add(new Ansatt("HH","Haylee","Haarmann",java.sql.Date.valueOf(LocalDate.now()), "Accountant",7600,4 ));
+		samples.add(new Ansatt("II","Irene","Iglesia",java.sql.Date.valueOf(LocalDate.now()), "Accountant",7600,4 ));
 		
 		for (Ansatt a : samples) {
 			AnsattEAO.leggTilAnsatt(a);
@@ -130,9 +132,9 @@ public class Klient {
 		
 
 		List<Prosjekt> samplesProsjekt = new ArrayList<Prosjekt>();
-		samplesProsjekt.add(new Prosjekt("CleanStreets","Clean the streets"));
-		samplesProsjekt.add(new Prosjekt("Music","making music"));
-		samplesProsjekt.add(new Prosjekt("dogpark","making a dog park"));
+		samplesProsjekt.add(new Prosjekt("Warehouse","Reorganizing Warehouse"));
+		samplesProsjekt.add(new Prosjekt("Sales","Increase sales"));
+		samplesProsjekt.add(new Prosjekt("Records","Clean Archives"));
 		
 		for (Prosjekt a : samplesProsjekt) {
 			ProsjektEAO.leggTilProsjekt(a);
@@ -141,9 +143,9 @@ public class Klient {
 		System.err.println("Created Prosjekt samples");
 		
 		List<ProsjektOversikt> samplesProsjektOversikt = new ArrayList<ProsjektOversikt>();
-		samplesProsjektOversikt.add(new ProsjektOversikt(4,1,"Cleaner",413));
-		samplesProsjektOversikt.add(new ProsjektOversikt(3,2,"Musician",4123));
-		samplesProsjektOversikt.add(new ProsjektOversikt(6,3,"walker",12));
+		samplesProsjektOversikt.add(new ProsjektOversikt(4,1,"Worker",413));
+		samplesProsjektOversikt.add(new ProsjektOversikt(3,2,"Analyst",4123));
+		samplesProsjektOversikt.add(new ProsjektOversikt(6,3,"Cleaner",12));
 		
 		for (ProsjektOversikt a : samplesProsjektOversikt) {
 			ProsjektOversiktEAO.leggTilProsjektOversikt(a);
@@ -288,8 +290,9 @@ public class Klient {
 				}
 				
 				if(!added) {
+					Ansatt temp = AnsattEAO.findAnsattByID( thisOversikt.getAnsattID());
 					oversikterKort.add(new Oversikt(thisOversikt.getAnsattID(),
-							AnsattEAO.findAnsattByID( thisOversikt.getAnsattID()).getBrukernavn(),
+							temp.getBrukernavn() + " " +  temp.getFornavn() + " " + temp.getEtternavn(),
 							thisOversikt.getAnsattArbeidsTimer(),thisOversikt.getAnsattRolle()));
 				}
 			}
