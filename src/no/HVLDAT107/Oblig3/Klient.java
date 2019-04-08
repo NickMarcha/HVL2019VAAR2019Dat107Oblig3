@@ -1,6 +1,5 @@
 package no.HVLDAT107.Oblig3;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,8 +33,8 @@ public class Klient {
 
 	public static void EnterStandardMenu() {
 		Command[] StartMenu = {
-				new Commands.Command("an", "Enter ansatt menu", Klient::EnterAnsattMenu),
-				new Commands.Command("av", "Enter Avdelings menu", Klient::EnterAvdelingsMenu),
+				new Commands.Command("an", "Ansatt meny", Klient::EnterAnsattMenu),
+				new Commands.Command("av", "Avdelings meny", Klient::EnterAvdelingsMenu),
 				new Commands.Command("pr", "Enter Prosjekt menu", Klient::EnterProsjektMeny),
 				new Commands.Command("cs", "Create sample data for all tables", Klient::CreateAllSampleData),
 				new Commands.Command("pa","Print out all tables" ,Klient::PrintAllTables),
@@ -58,19 +57,19 @@ public class Klient {
 
 		Helper.PrintList(ansatte);
 
-		System.err.println("Avdelinge");
+		System.err.println("Avdelinger:");
 		List<Avdeling> Avdelinge = AvdelingEAO.hentAlleAvdelinge();
 		Avdelinge.remove(0);
 
 		Helper.PrintList(Avdelinge);
 
-		System.err.println("Prosjekte");
+		System.err.println("Prosjekter:");
 		List<Prosjekt> Prosjekte = ProsjektEAO.hentAlleProsjekter();
 
 
 		Helper.PrintList(Prosjekte);
 
-		System.err.println("ProsjektOversikte");
+		System.err.println("ProsjektOversikter:");
 		List<ProsjektOversikt> ProsjektOversikte = ProsjektOversiktEAO.hentAlleProsjektOversikter();
 
 
@@ -94,9 +93,9 @@ public class Klient {
 
 
 		List<Ansatt> samplesAn = new ArrayList<Ansatt>();
-		samplesAn.add(new Ansatt("AA","Andy","Arrington",java.sql.Date.valueOf(LocalDate.now()), "WareHouse-Boss",10000,2 ));
-		samplesAn.add(new Ansatt("BB","Betty","Babington",java.sql.Date.valueOf(LocalDate.now()), "Sales-Boss",13000,3 ));
-		samplesAn.add(new Ansatt("CC","Clint","Caesar",java.sql.Date.valueOf(LocalDate.now()), "Finance-Boss",10000,4 ));
+		samplesAn.add(new Ansatt("AA","Andy","Arrington",java.sql.Date.valueOf("2000-04-24"), "WareHouse-Boss",10000,2 ));
+		samplesAn.add(new Ansatt("BB","Betty","Babington",java.sql.Date.valueOf("2000-04-26"), "Sales-Boss",13000,3 ));
+		samplesAn.add(new Ansatt("CC","Clint","Caesar",java.sql.Date.valueOf("2000-04-28"), "Finance-Boss",10000,4 ));
 
 		for (Ansatt a : samplesAn) {
 			AnsattEAO.leggTilAnsatt(a);
@@ -117,12 +116,12 @@ public class Klient {
 
 		List<Ansatt> samples = new ArrayList<Ansatt>();
 
-		samples.add(new Ansatt("DD","Dick","D'Avella",java.sql.Date.valueOf(LocalDate.now()), "Packer",5500,2 ));
-		samples.add(new Ansatt("EE","Eileen","Earthman",java.sql.Date.valueOf(LocalDate.now()), "Packer",5500,2 ));
-		samples.add(new Ansatt("FF","Frida","Fagerberg",java.sql.Date.valueOf(LocalDate.now()), "Sales-rep",9000,3 ));
-		samples.add(new Ansatt("GG","George","Gadsby",java.sql.Date.valueOf(LocalDate.now()), "Sales-rep",9000,3 ));
-		samples.add(new Ansatt("HH","Haylee","Haarmann",java.sql.Date.valueOf(LocalDate.now()), "Accountant",7600,4 ));
-		samples.add(new Ansatt("II","Irene","Iglesia",java.sql.Date.valueOf(LocalDate.now()), "Accountant",7600,4 ));
+		samples.add(new Ansatt("DD","Dick","D'Avella",java.sql.Date.valueOf("2001-07-14"), "Packer",5500,2 ));
+		samples.add(new Ansatt("EE","Eileen","Earthman",java.sql.Date.valueOf("2001-07-04"), "Packer",5500,2 ));
+		samples.add(new Ansatt("FF","Frida","Fagerberg",java.sql.Date.valueOf("2001-07-20"), "Sales-rep",9000,3 ));
+		samples.add(new Ansatt("GG","George","Gadsby",java.sql.Date.valueOf("2001-07-22"), "Sales-rep",9000,3 ));
+		//samples.add(new Ansatt("HH","Haylee","Haarmann",java.sql.Date.valueOf("2001-07-15"), "Accountant",7600,4 ));
+		//samples.add(new Ansatt("II","Irene","Iglesia",java.sql.Date.valueOf("2001-07-18"), "Accountant",7600,4 ));
 
 		for (Ansatt a : samples) {
 			AnsattEAO.leggTilAnsatt(a);
@@ -134,7 +133,7 @@ public class Klient {
 		List<Prosjekt> samplesProsjekt = new ArrayList<Prosjekt>();
 		samplesProsjekt.add(new Prosjekt("Warehouse","Reorganizing Warehouse"));
 		samplesProsjekt.add(new Prosjekt("Sales","Increase sales"));
-		samplesProsjekt.add(new Prosjekt("Records","Clean Archives"));
+		samplesProsjekt.add(new Prosjekt("Records","Reorganizing Archives"));
 
 		for (Prosjekt a : samplesProsjekt) {
 			ProsjektEAO.leggTilProsjekt(a);
@@ -146,6 +145,9 @@ public class Klient {
 		samplesProsjektOversikt.add(new ProsjektOversikt(4,1,"Worker",413));
 		samplesProsjektOversikt.add(new ProsjektOversikt(3,2,"Analyst",4123));
 		samplesProsjektOversikt.add(new ProsjektOversikt(6,3,"Cleaner",12));
+		samplesProsjektOversikt.add(new ProsjektOversikt(4,1,"Packer",413));
+		samplesProsjektOversikt.add(new ProsjektOversikt(3,2,"Salesman",4123));
+		samplesProsjektOversikt.add(new ProsjektOversikt(6,3,"Archiver",12));
 
 		for (ProsjektOversikt a : samplesProsjektOversikt) {
 			ProsjektOversiktEAO.leggTilProsjektOversikt(a);
@@ -162,7 +164,7 @@ public class Klient {
 	public static void EnterProsjektMeny() {
 		Command[] ProsjektMenu ={
 				new Commands.Command("cp", "Create Prosjekt", Prosjekt::CreateProsjekt),
-				new Commands.Command("s", "Search for Prosjekt menu", Klient::SearchForProsjekt),
+				new Commands.Command("s", "Search for Prosjekt", Klient::SearchForProsjekt),
 				new Commands.Command("p", "Show list of Prosjekt", Prosjekt :: SkrivUtAlleProsjekter),
 				new Commands.Command("e", "Exit to Standard Menu", Klient :: EnterStandardMenu)		
 		};
@@ -173,8 +175,8 @@ public class Klient {
 	public static void SearchForProsjekt() {
 		Command[] SearchForAnsattMenu ={
 				new Commands.Command("i", "Search for Prosjekt by id", Klient::SearchForProsjektByID),	
-				new Commands.Command("u", "Search for Prosjekt by name", Klient::SearchForProsjektByName),
-				new Commands.Command("e", "Exit", Klient::EnterProsjektMeny)
+				new Commands.Command("n", "Search for Prosjekt by name", Klient::SearchForProsjektByName),
+				new Commands.Command("e", "Exit to Prosjekt Menu", Klient::EnterProsjektMeny)
 		};
 
 		Commands.showCommands(SearchForAnsattMenu);
@@ -207,13 +209,13 @@ public class Klient {
 
 	public static void EditProsjekt() {
 		Command[] EditProsjektMenu ={
-				new Commands.Command("n", "edit navn", Klient::EditProsjektNavn),	
-				new Commands.Command("b", "edit beskrivelse", Klient::EditProsjektBeskrivelse),
+				new Commands.Command("n", "Change navn", Klient::EditProsjektNavn),	
+				new Commands.Command("b", "Change beskrivelse", Klient::EditProsjektBeskrivelse),
 				new Commands.Command("rd", "Registrer Prosjekt deltagelse", Klient::EditProsjektRegistrerAnsattDeltagelse),
 				new Commands.Command("to", "Skriv ut timeoversikt:", Klient::EditProsjektSkrivUtTimeOversikt),
 				//new Commands.Command("ok", "Skriv ut oversiktkort", Klient:: EditProsjektSkrivUtTimeOversiktShort),
-				new Commands.Command("ok", "Skriv ut oversiktkort", Klient:: EditProsjektSkrivUtTimeOversiktShortQuick),
-				new Commands.Command("d", "slett Prosjekt", Klient::SlettProsjekt),
+				new Commands.Command("ok", "Skriv ut oversikt Sammendrag", Klient:: EditProsjektSkrivUtTimeOversiktShortQuick),
+				new Commands.Command("d", "Slett Prosjekt", Klient::SlettProsjekt),
 				new Commands.Command("e", "Exit", Klient::EnterProsjektMeny)
 		};
 
@@ -380,7 +382,7 @@ public class Klient {
 	}
 
 	public static void EditProsjektRegistrerAnsattDeltagelse() {
-		System.err.println("Registrer prosjekt deltagelse for " +currentProsjekt.getNavn()+ ":");
+		System.err.println("Registrer prosjekt deltagelse for " + currentProsjekt.getNavn() + ":");
 
 		ProsjektOversikt.CreateProsjektOversiktForProsjekt(currentProsjekt.getId());
 
@@ -435,6 +437,7 @@ public class Klient {
 		Command[] SearchForAnsattMenu ={
 				new Commands.Command("i", "Search for Ansatt by id", Klient::SearchForAnsattByID),	
 				new Commands.Command("u", "Search for Ansatt by username", Klient::SearchForAnsattByUserName),
+				new Commands.Command("fn", "Search for Ansatt by firstname", Klient::SearchForAnsattByFirstName),	
 				new Commands.Command("e", "Exit", Klient::EnterAnsattMenu)
 		};
 
@@ -466,13 +469,25 @@ public class Klient {
 		}
 	}
 
+	public static void SearchForAnsattByFirstName(){
+		String searchString = Helper.InputString("Input firstname:");
+		System.err.println("Result:");
+		currentAnsatt = AnsattEAO.findAnsattByFirstName(searchString);
+		System.out.println(currentAnsatt);
+		if(currentAnsatt != null) {
+			EditAnsatt();
+		} else {
+			SearchForAnsatt();
+		}
+	}
+	
 	public static void EditAnsatt() {
 		Command[] EditAnsattMenu ={
 				new Commands.Command("rp", "Registrer Prosjekt deltagelse", Klient::EditAnsattRegistrerProsjektDeltagelse),
-				new Commands.Command("po", "Skriv ut timeoversikt", Klient::EditAnsattSkrivUtTimeOversikQuick),
-				new Commands.Command("s", "edit stilling", Klient::EditAnsattStilling),	
-				new Commands.Command("l", "edit lønn", Klient::EditAnsattLonn),
-				new Commands.Command("a", "edit avdeling", Klient::EditAnsattAvdeling),
+				new Commands.Command("po", "Skriv ut timeoversikt", Klient::EditAnsattSkrivUtTimeOversiktQuick),
+				new Commands.Command("s", "Change stilling", Klient::EditAnsattStilling),	
+				new Commands.Command("l", "Change lønn", Klient::EditAnsattLonn),
+				new Commands.Command("a", "Change avdeling", Klient::EditAnsattAvdeling),
 				new Commands.Command("d", "slett Ansatt", Klient::SlettAnsatt),
 				new Commands.Command("e", "Exit", Klient::EnterAnsattMenu)
 		};
@@ -481,7 +496,7 @@ public class Klient {
 
 	}
 
-	public static void EditAnsattSkrivUtTimeOversikQuick() {
+	public static void EditAnsattSkrivUtTimeOversiktQuick() {
 
 		System.err.println("Timeoversikt:");
 		List<ProsjektOversikt> oversikter = ProsjektOversiktEAO.hentProsjektOversikterByAnsatt(currentAnsatt.getId());
@@ -490,7 +505,7 @@ public class Klient {
 	}
 	
 	/**
-	 * @deprecated use {@link #EditAnsattSkrivUtTimeOversikQuick()} instead.  
+	 * @deprecated use {@link #EditAnsattSkrivUtTimeOversiktQuick()} instead.  
 	 */
 	@Deprecated
 	public static void EditAnsattSkrivUtTimeOversikt() {
@@ -604,8 +619,8 @@ public class Klient {
 
 	public static void SearchForAvdeling() {
 		Command[] SearchForAnsattMenu ={
-				new Commands.Command("i", "Search for Ansatt by id", Klient::SearchForAnsattByID),	
-				new Commands.Command("u", "Search for Ansatt by username", Klient::SearchForAnsattByUserName),
+				new Commands.Command("i", "Search for Avdeling by id", Klient::SearchForAvdelingByID),	
+				new Commands.Command("u", "Search for Avdeling by name", Klient::SearchForAvdelingByName),
 				new Commands.Command("e", "Exit", Klient::EnterAnsattMenu)
 		};
 
@@ -639,9 +654,10 @@ public class Klient {
 
 	public static void EditAvdeling() {
 		Command[] EditAvdelingMenu ={
-				new Commands.Command("n", "edit navn", Klient::EditAvdelingNavn),	
+				new Commands.Command("n", "edit navn", Klient::EditAvdelingNavn),
 				new Commands.Command("sj", "edit sjef", Klient::EditAvdelingSjef),
-				new Commands.Command("d", "edit delete", Klient::SlettAvdeling),
+				new Commands.Command("su", "skriv ut liste av ansatte", Klient::EditAvdelingSkrivUt),
+				new Commands.Command("d", "delete", Klient::SlettAvdeling),
 				new Commands.Command("e", "Exit", Klient::EnterAvdelingsMenu)
 		};
 
@@ -649,8 +665,12 @@ public class Klient {
 
 	}
 
+	public static void EditAvdelingSkrivUt() {
+		Avdeling.SkrivUtAlleAnsatte(currentAvdeling.getId());
+		EditAvdeling();
+	}
 	public static void EditAvdelingNavn() {
-		String nyNavn = Helper.InputString("Nyttt navn:");
+		String nyNavn = Helper.InputString("Nytt navn:");
 
 		currentAvdeling= AvdelingEAO.EditAvdelingnavn(currentAvdeling, nyNavn);
 		System.out.println(currentAvdeling);
@@ -659,19 +679,81 @@ public class Klient {
 
 	public static void EditAvdelingSjef() {
 		int nySjefID = Helper.InputInt("Ny Sjef:");
-
-		currentAvdeling = AvdelingEAO.EditAvdelingSjef(currentAvdeling, nySjefID);
-		System.out.println(currentAvdeling);
-		EditAvdeling();
+		Ansatt sj = AnsattEAO.findAnsattByID(nySjefID);
+		
+		boolean isBoss = false;
+		for (Avdeling avd : AvdelingEAO.hentAlleAvdelinge()) {
+			if (avd.getSjefID() == nySjefID) {
+				isBoss = true;
+			}
+		}
+		
+		if(!isBoss) {
+			currentAvdeling = AvdelingEAO.EditAvdelingSjef(currentAvdeling, nySjefID);
+			System.out.println(currentAvdeling);
+			EditAvdeling();
+		} else {
+			System.err.println(sj.getFornavn() + " er allerede sjef i en avdeling");
+			EditAvdelingSjef();
+		}
 	}
 
 	public static void SlettAvdeling() {
 
 		System.out.println("Sletter Avdeling");
 		if(Helper.confirmation()) {
-			AvdelingEAO.DeleteAvdeling(currentAvdeling);
-			currentAvdeling = null;
-			SearchForAvdeling();
+			List<Ansatt> avdelingsAnsatte = AnsattEAO.HentAnsattByAvdeling(currentAvdeling.getId());
+			
+			boolean hasNonBossEmployees =  false;
+			
+			for (Ansatt an : avdelingsAnsatte) {
+				if(an.getId() != currentAvdeling.getSjefID()) {
+					hasNonBossEmployees = true;
+				}
+			}
+			
+			if(hasNonBossEmployees) {
+				System.err.println("Can't delete Avdeling, it has non boss employees");
+				EditAvdeling();
+				
+			} else {
+				int avdeling = -1;
+				List<Avdeling> avdelinger = AvdelingEAO.hentAlleAvdelinge();
+				avdelinger.remove(0);
+
+				for (int i = 0; i < avdelinger.size(); i++) {
+					if(avdelinger.get(i).getId() == currentAvdeling.getId()) {
+						avdelinger.remove(i);
+						break;
+					}
+				}
+				List<Integer> avde = new ArrayList<Integer>();
+
+				for(int i = 0; i < avdelinger.size(); i++) {
+					avde.add(avdelinger.get(i).getId());
+				}
+
+				while (avdeling== -1) {
+					System.out.println("Printer avdelinger:");
+					Helper.PrintList(avdelinger);
+
+					int avd = Helper.InputInt("Input ny avdeling for sjef:");
+
+					if (avde.contains(avd)){
+						avdeling = avd;
+					} else {
+						System.out.println("Avdelingen finnes ikke");
+					}
+
+				}
+	
+				
+				AvdelingEAO.DeleteAvdeling(currentAvdeling, avdeling);
+				currentAvdeling = null;
+				SearchForAvdeling();
+			}
+					
+			
 		} else {
 			System.out.println(currentAvdeling);
 			EditAvdeling();

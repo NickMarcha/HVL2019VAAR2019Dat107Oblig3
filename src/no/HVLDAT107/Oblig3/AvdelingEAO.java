@@ -130,12 +130,15 @@ public final class AvdelingEAO {
 		return a;
 	}
 	
-	static Avdeling DeleteAvdeling(Avdeling a) {
+	static Avdeling DeleteAvdeling(Avdeling a, int nySjefAvd ) {
 		EntityManager em = DataBase.getEMF().createEntityManager();
 		
 		try {
 			em.getTransaction().begin();
 			a = em.merge(a);
+			Ansatt an = AnsattEAO.findAnsattByID(a.getSjefID());
+			an = em.merge(an);
+			an.setAvdeling(nySjefAvd);
 			em.remove(a);
 			em.getTransaction().commit();
 		} finally {

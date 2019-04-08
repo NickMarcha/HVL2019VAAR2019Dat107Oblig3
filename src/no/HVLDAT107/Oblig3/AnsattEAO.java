@@ -19,6 +19,30 @@ public final class AnsattEAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	static Ansatt findAnsattByFirstName(String firstName) {
+		EntityManager em = DataBase.getEMF().createEntityManager();
+		firstName = "%" + firstName + "%";
+		String selectQuery= "SELECT u FROM Ansatt u WHERE u.fornavn LIKE :brukernavn"; 
+		Query query = em.createQuery(selectQuery, Ansatt.class);
+
+		//List<String> brukern = Arrays.asList(firstName);
+		query.setParameter("brukernavn", firstName);
+		List<Ansatt> users;
+		try {
+			
+			users = query.getResultList();
+			
+		} finally {
+			em.close();
+		}
+		
+		if(users.isEmpty()) {
+			return null;
+		}
+		return users.get(0); 
+	}
+	
+	@SuppressWarnings("unchecked")
 	static Ansatt findAnsattByUserName(String bnavn) {
 		EntityManager em = DataBase.getEMF().createEntityManager();
 		
@@ -133,6 +157,29 @@ public final class AnsattEAO {
 		}
 		
 		return a;
+	}
+	
+	
+	static List<Ansatt> HentAnsattByAvdeling(int avdeling) {
+		EntityManager em = DataBase.getEMF().createEntityManager();
+		
+		String selectQuery= "SELECT u FROM Ansatt u WHERE u.avdeling = :avd"; 
+		TypedQuery<Ansatt> query = em.createQuery(selectQuery, Ansatt.class);
+
+		query.setParameter("avd", avdeling);
+		List<Ansatt> users;
+		try {
+			
+			users = query.getResultList();
+			
+		} finally {
+			em.close();
+		}
+		
+		if(users.isEmpty()) {
+			return null;
+		}
+		return users; 
 	}
 	
 }

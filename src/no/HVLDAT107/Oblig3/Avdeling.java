@@ -142,4 +142,32 @@ public class Avdeling {
 			Helper.PrintList(avAnsatt);
 		}
 	}
+	public static void SkrivUtAlleAnsatte(int avdelingiD) {
+		System.err.println("Printer Avdeling:");
+		Avdeling av = AvdelingEAO.findAvdelingByID(avdelingiD);
+
+		List<Ansatt> ansatte = AnsattEAO.hentAlleAnsatte();
+		ansatte.remove(0);
+
+
+		System.out.println("Avd:" + av.getId() + " "+ av.getNavn());
+
+		List<Ansatt> avAnsatt = new ArrayList<Ansatt>();
+
+		for(Ansatt a : ansatte) {
+			//ansatt gører til avdeling
+			if(a.getAvdeling() == av.getId()) {
+				//avdelings sjef id er lik ansatt id
+				if(av.getSjefID() == a.getId()) {
+					System.out.println("--"+ a +"(Sjef)");
+				} else {
+					avAnsatt.add(a);
+				}
+			}
+
+
+
+			Helper.PrintList(avAnsatt);
+		}
+	}
 }

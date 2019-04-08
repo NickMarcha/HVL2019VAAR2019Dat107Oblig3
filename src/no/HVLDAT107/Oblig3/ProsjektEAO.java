@@ -1,6 +1,6 @@
 package no.HVLDAT107.Oblig3;
 
-import java.util.Arrays;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,14 +21,14 @@ public class ProsjektEAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	static Prosjekt findProsjektByName(String bnavn) {
+	static Prosjekt findProsjektByName(String prosjektName) {
+		prosjektName = "%" + prosjektName + "%";
 		EntityManager em = DataBase.getEMF().createEntityManager();
 		
-		String selectQuery= "SELECT u FROM Prosjekt u WHERE u.navn IN :brukernavn"; 
-		Query query = em.createQuery(selectQuery, Ansatt.class);
+		String selectQuery= "SELECT u FROM Prosjekt u WHERE u.navn LIKE :brukernavn"; 
+		Query query = em.createQuery(selectQuery, Prosjekt.class);
 
-		List<String> brukern = Arrays.asList(bnavn);
-		query.setParameter("brukernavn", brukern);
+		query.setParameter("brukernavn", prosjektName);
 		List<Prosjekt> users;
 		try {
 			

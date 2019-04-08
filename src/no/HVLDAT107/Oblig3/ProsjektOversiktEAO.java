@@ -15,13 +15,13 @@ public class ProsjektOversiktEAO {
 		return true;
 	}
 	
+	@SuppressWarnings("unchecked")
 	static List<ProsjektOversikt> hentProsjektOversikterByAnsatt(int ansattID) {
 		EntityManager em = DataBase.getEMF().createEntityManager();
 		
 		String selectQuery= "SELECT u FROM ProsjektOversikt u WHERE u.ansattID = :pID"; 
 		Query query = em.createQuery(selectQuery, ProsjektOversikt.class);
 
-		//List<String> brukern = Arrays.asList(bnavn);
 		
 		query.setParameter("pID", ansattID);
 		List<ProsjektOversikt> users;
@@ -44,8 +44,6 @@ public class ProsjektOversiktEAO {
 		
 		String selectQuery= "SELECT u FROM ProsjektOversikt u WHERE u.prosjektID = :pID"; 
 		Query query = em.createQuery(selectQuery, ProsjektOversikt.class);
-
-		//List<String> brukern = Arrays.asList(bnavn);
 		
 		query.setParameter("pID", prosjektID);
 		List<ProsjektOversikt> users;
