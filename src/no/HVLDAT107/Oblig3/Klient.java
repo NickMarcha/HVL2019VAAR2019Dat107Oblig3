@@ -120,8 +120,8 @@ public class Klient {
 		samples.add(new Ansatt("EE","Eileen","Earthman",java.sql.Date.valueOf("2001-07-04"), "Packer",5500,2 ));
 		samples.add(new Ansatt("FF","Frida","Fagerberg",java.sql.Date.valueOf("2001-07-20"), "Sales-rep",9000,3 ));
 		samples.add(new Ansatt("GG","George","Gadsby",java.sql.Date.valueOf("2001-07-22"), "Sales-rep",9000,3 ));
-		//samples.add(new Ansatt("HH","Haylee","Haarmann",java.sql.Date.valueOf("2001-07-15"), "Accountant",7600,4 ));
-		//samples.add(new Ansatt("II","Irene","Iglesia",java.sql.Date.valueOf("2001-07-18"), "Accountant",7600,4 ));
+		samples.add(new Ansatt("HH","Haylee","Haarmann",java.sql.Date.valueOf("2001-07-15"), "Accountant",7600,4 ));
+		samples.add(new Ansatt("II","Irene","Iglesia",java.sql.Date.valueOf("2001-07-18"), "Accountant",7600,4 ));
 
 		for (Ansatt a : samples) {
 			AnsattEAO.leggTilAnsatt(a);
@@ -163,9 +163,9 @@ public class Klient {
 
 	public static void EnterProsjektMeny() {
 		Command[] ProsjektMenu ={
-				new Commands.Command("cp", "Create Prosjekt", Prosjekt::CreateProsjekt),
+				new Commands.Command("cp", "Create Prosjekt", Prosjekt::CreateProsjekt,true),
 				new Commands.Command("s", "Search for Prosjekt", Klient::SearchForProsjekt),
-				new Commands.Command("p", "Show list of Prosjekt", Prosjekt :: SkrivUtAlleProsjekter),
+				new Commands.Command("p", "Show list of Prosjekt", Prosjekt :: SkrivUtAlleProsjekter,true),
 				new Commands.Command("e", "Exit to Standard Menu", Klient :: EnterStandardMenu)		
 		};
 
@@ -426,7 +426,7 @@ public class Klient {
 		Command[] AnsattMenu ={
 				new Commands.Command("ca", "Create Ansatt", Ansatt::CreateAnsatt),
 				new Commands.Command("s", "Search for Ansatt menu", Klient::SearchForAnsatt),
-				new Commands.Command("p", "Show list of Ansatte", Ansatt :: SkrivUtAlleAnsatte),
+				new Commands.Command("p", "Show list of Ansatte", Ansatt :: SkrivUtAlleAnsatte,true),
 				new Commands.Command("e", "Exit to Standard Menu", Klient :: EnterStandardMenu)		
 		};
 
@@ -607,10 +607,10 @@ public class Klient {
 
 	public static void EnterAvdelingsMenu() {
 		Command[] AnsattMenu ={
-				new Commands.Command("ca", "Create Avdeling", Avdeling::CreateAvdeling),
+				new Commands.Command("ca", "Create Avdeling", Avdeling::CreateAvdeling,true),
 				new Commands.Command("s", "Search for Avdeling menu", Klient::SearchForAvdeling),
-				new Commands.Command("l", "Show list of Avdeling", Avdeling :: SkrivUtAlleAvdelinge),
-				new Commands.Command("la", "Show list of Avdeling m/ ansatte", Avdeling :: SkrivUtAlleAvdelingeMedAnsatte),
+				new Commands.Command("l", "Show list of Avdeling", Avdeling :: SkrivUtAlleAvdelinge,true),
+				new Commands.Command("la", "Show list of Avdeling m/ ansatte", Avdeling :: SkrivUtAlleAvdelingeMedAnsatte,true),
 				new Commands.Command("e", "Exit to Standard Menu", Klient :: EnterStandardMenu)		
 		};
 
