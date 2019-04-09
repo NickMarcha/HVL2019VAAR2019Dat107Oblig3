@@ -164,10 +164,7 @@ public class Avdeling {
 					avAnsatt.add(a);
 				}
 			}
-
-
-
-			Helper.PrintList(avAnsatt);
 		}
+		Helper.PrintList(avAnsatt);
 	}
 }
