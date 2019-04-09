@@ -113,7 +113,13 @@ public class ProsjektEAO {
 		try {
 			em.getTransaction().begin();
 			a = em.merge(a);
+			
+			for(ProsjektOversikt po : ProsjektOversiktEAO.hentProsjektOversikterByProsjekt(a.getId())) {
+				po = em.merge(po);
+				em.remove(po);
+			}
 			em.remove(a);
+			
 			em.getTransaction().commit();
 		} finally {
 			em.close();

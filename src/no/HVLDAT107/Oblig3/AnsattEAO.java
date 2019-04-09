@@ -149,6 +149,10 @@ public final class AnsattEAO {
 		
 		try {
 			em.getTransaction().begin();
+			for(ProsjektOversikt po : ProsjektOversiktEAO.hentProsjektOversikterByProsjekt(a.getId())) {
+				po = em.merge(po);
+				em.remove(po);
+			}
 			a = em.merge(a);
 			em.remove(a);
 			em.getTransaction().commit();
